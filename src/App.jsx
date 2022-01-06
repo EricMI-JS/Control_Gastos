@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0);
+import Header from "./components/Header";
 
-  return <h1>Control de gastos</h1>;
+function App() {
+  const [presupuesto, setPresupuesto] = useState(0);
+
+  return (
+    <div>
+      <Header presupuesto={presupuesto} setPresupuesto={setPresupuesto} />
+    </div>
+  );
 }
 
 export default App;
