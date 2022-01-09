@@ -1,13 +1,26 @@
-import { useState } from "react";
-import Mensaje from './Mensaje';
+import { useState, useEffect } from "react";
+import Mensaje from "./Mensaje";
 import CerrarBtn from "../img/cerrar.svg";
 
-const Modal = ({ setModal, animarModal, setAnimarModal, guardarGasto }) => {
+const Modal = ({
+  setModal,
+  animarModal,
+  setAnimarModal,
+  guardarGasto,
+  gastoEditar,
+}) => {
+  const [mensaje, setMensaje] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [cantidad, setCantidad] = useState("");
+  const [categoria, setCategoria] = useState("");
 
-  const [mensaje, setMensaje] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [cantidad, setCantidad] = useState('');
-  const [categoria, setCategoria] = useState('');
+  useEffect(() => {
+    if (Object.keys(gastoEditar).length > 0) {
+      setNombre(gastoEditar.nombre);
+      setCantidad(gastoEditar.cantidad);
+      setCategoria(gastoEditar.categoria);
+    }
+  }, []);
 
   const ocultarModal = () => {
     setAnimarModal(false);
@@ -17,32 +30,33 @@ const Modal = ({ setModal, animarModal, setAnimarModal, guardarGasto }) => {
     }, 500);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if([nombre, cantidad, categoria].includes('')) {
-      setMensaje('Todos los campos son obligatorios');
+    if ([nombre, cantidad, categoria].includes("")) {
+      setMensaje("Todos los campos son obligatorios");
 
       setTimeout(() => {
-        setMensaje('');
+        setMensaje("");
       }, 2000);
-      return 
+      return;
     }
 
-    guardarGasto({nombre, cantidad, categoria})
-  }
-  
+    guardarGasto({ nombre, cantidad, categoria });
+  };
+
   return (
     <div className="modal">
       <div className="cerrar-modal">
         <img src={CerrarBtn} alt="Cerrar modal" onClick={ocultarModal} />
       </div>
 
-      <form 
-      onSubmit={handleSubmit}
-      className={`formulario ${animarModal ? "animar" : "cerrar"}`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`formulario ${animarModal ? "animar" : "cerrar"}`}
+      >
         <legend>Nuevo Gasto</legend>
-        {mensaje && <Mensaje tipo='error'>{mensaje}</Mensaje>}
+        {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
 
         <div className="campo">
           <label htmlFor="nombre">Nombre Gasto</label>
@@ -51,7 +65,7 @@ const Modal = ({ setModal, animarModal, setAnimarModal, guardarGasto }) => {
             id="nombre"
             placeholder="Añade el nombre del gasto"
             value={nombre}
-            onChange={e => setNombre(e.target.value)}
+            onChange={(e) => setNombre(e.target.value)}
           />
         </div>
 
@@ -62,19 +76,18 @@ const Modal = ({ setModal, animarModal, setAnimarModal, guardarGasto }) => {
             id="cantidad"
             placeholder="Añade la cantidad del gasto ej. 300"
             value={cantidad}
-            onChange={e => setCantidad(Number(e.target.value))}
-            
+            onChange={(e) => setCantidad(Number(e.target.value))}
           />
         </div>
 
         <div className="campo">
           <label htmlFor="categoria">Categoría</label>
-          <select 
-          name="" 
-          id="categoria" 
-          value={categoria}
-          onChange={e => setCategoria(e.target.value)}>
-
+          <select
+            name=""
+            id="categoria"
+            value={categoria}
+            onChange={(e) => setCategoria(e.target.value)}
+          >
             <option value="">-- Seleccione --</option>
             <option value="ahorro">Ahorro</option>
             <option value="comida">Comida</option>
