@@ -27,9 +27,12 @@ html {
   height: 100vh;
 }
 
-h1 {
-  font-size: 4rem;
+@media (min-width: 768px) {
+  h1 {
+    font-size: 4rem;
+  }
 }
+
 h2 {
   font-size: 3rem;
 }
@@ -67,8 +70,9 @@ header h1 {
     width: 60rem;
   }
 }
+
 .formulario legend {
-  font-size: 3.6rem;
+  font-size: 3rem;
   text-align: center;
   display: block;
   text-transform: uppercase;
@@ -77,9 +81,15 @@ header h1 {
   padding-bottom: 1rem;
   border-bottom: 2px solid var(--azul);
 }
+
+@media (min-width: 768px) {
+  .formulario legend {
+    font-size: 3.6rem;
+  }
+}
 .formulario .campo {
-  display: grid;
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .formulario label {
@@ -235,10 +245,15 @@ main {
   padding-top: 10rem;
 }
 
-.filtros .campo {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+.filtros {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .filtros .campo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
 }
 .filtros label {
   font-size: 3rem;
@@ -247,6 +262,7 @@ main {
 }
 .filtros select {
   flex: 1;
+  margin-top: 1.5rem;
   padding: 1rem;
   border: none;
   border-radius: 1rem;
@@ -322,8 +338,8 @@ main {
 
 .nuevo-gasto {
   position: fixed;
-  bottom: 5rem;
-  right: 5rem;
+  bottom: 3rem;
+  right: 1.5rem;
 }
 
 .nuevo-gasto img {
@@ -343,22 +359,34 @@ main {
 }
 .modal .cerrar-modal {
   position: absolute;
-  right: 3rem;
-  top: 3rem;
+  right: 2.5rem;
+  top: 2.5rem;
   width: 3rem;
   height: 3rem;
+  z-index: 1;
 }
+
+.modal .cerrar-modal:hover {
+  cursor: pointer;
+}
+
 .modal .cerrar-modal img {
   width: 100%;
 }
 
 .modal .formulario {
   max-width: 80rem;
-  width: 40rem;
+  width: 30rem;
   transition-property: all;
   transition-duration: 300ms;
   transition-timing-function: ease-in;
   opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .modal .formulario {
+    width: 40rem;
+  }
 }
 .modal label {
   color: var(--blanco);
